@@ -1,4 +1,3 @@
-```markdown
 # Cinema Ticket Purchase Platform
 
 This is a Cinema Ticket Purchase Platform implemented using Express, MongoDB, and TypeScript.
