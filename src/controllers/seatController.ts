@@ -25,3 +25,25 @@ export const purchaseSeat = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Could not purchase seat' });
   }
 };
+
+export const purchaseConsecutiveSeats = async (req: Request, res: Response) => {
+  try {
+    const { cinemaId } = req.params;
+    
+    // Find the first two consecutive available seats
+    const seats = await Seat.find({ cinema: cinemaId, isPurchased: false })
+      .limit(2)
+      .sort('number');
+
+    if (seats.length < 2) {
+      return res.status(400).json({ error: 'No two consecutive seats available' });
+    }
+
+    // Purchase the consecutive seats
+    await Seat.updateMany({ _id: { $in: seats.map((seat) => seat._id) } }, { isPurchased: true });
+
+    res.status(200).json({ seats });
+  } catch (error) {
+    res.status(500).json({ error: 'Could not purchase consecutive seats' });
+  }
+};
