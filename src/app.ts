@@ -3,6 +3,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
+import cinemaRoutes from './routes/cinemaRoutes';
+
 import dotenv from 'dotenv';
 
 // Load environment variables from .env file
@@ -26,6 +28,8 @@ mongoose.connect(MONGO_URI, {})
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/cinemas', cinemaRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
