@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
 import cinemaRoutes from './routes/cinemaRoutes';
+import seatRoutes from './routes/seatRoutes';
 
 import dotenv from 'dotenv';
 
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/cinemas', cinemaRoutes);
+app.use('/seats', seatRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
